@@ -2,8 +2,8 @@ import  FileHound  from "filehound";
  FileHound.create()
   .ignoreHiddenFiles()
   .ignoreHiddenDirectories()
-  
-  .ext(['.jpg', '.jpeg', 'png'])
+  .discard(['.pdf', '.exe', '.py'])
+  .ext(['.jpg', '.jpeg', '.png'])
   .find((err, files) => {
     if (err) {
       return console.error(`error: ${err}`);
