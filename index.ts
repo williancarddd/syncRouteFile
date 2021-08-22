@@ -2,12 +2,21 @@ import { Request, Response } from 'express'
 import express from 'express'
 import morgan from 'morgan'
 import filehound from 'filehound'
+import cors from 'cors'
 import 'dotenv/config';
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
+app.use(cors())
+app.use((req, res, next) => {
+  res.header("Access-Controle-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+  next();
+});
 app.use(express.static(`C:\\OpenDentImages`))
 
 async function search_photos(letter: string, name_folder: string): Promise<any> {
